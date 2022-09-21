@@ -1,2 +1,2 @@
 # quebec-emergency-rooms
-map of current occupancy rate in Quebec emergency rooms
+map of current occupancy rates in Quebec emergency rooms
