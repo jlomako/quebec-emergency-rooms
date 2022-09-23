@@ -47,6 +47,13 @@ pal_red <- colorNumeric(palette = "YlOrRd", domain = df$occupancy_rate) # "YlOrR
 # pal_green <- colorNumeric(palette = "RdYlGn", reverse=T, domain = df$occupancy_rate)
   
 
+# create labels for map
+df$content <- sprintf(paste0("<b>",df$hospital_name,"</b><br>",
+                             "Occupancy: ", df$occupancy_rate, "&#37;",
+                             "<br>", df$beds_occ, " beds of ", df$beds_total, " occupied")) %>%
+  lapply(htmltools::HTML)
+
+
 # shiny app
 ui <- bootstrapPage(
   
@@ -68,13 +75,15 @@ ui <- bootstrapPage(
 server <- function(input, output) { 
   
   output$map <- renderLeaflet({
-    leaflet(df) %>% addProviderTiles(providers$CartoDB.Voyager) %>% # providers$OpenStreetMap, CartoDB.Voyager
+    leaflet(df) %>% 
+      addProviderTiles(providers$CartoDB.Voyager) %>% # providers$OpenStreetMap, CartoDB.Voyager
       addCircleMarkers(lng = ~Long, lat = ~Lat, 
-                       label = ~paste(hospital_name, ":", occupancy_rate, "%"), 
+                       label = ~content, 
                        # fillColor = ~ifelse(occupancy_rate >= 89, pal_red(occupancy_rate), pal_green(occupancy_rate)),
                        fillColor = ~pal_red(occupancy_rate),
                        fillOpacity = 0.8,
-                       stroke = T, color = "black", weight = 0.3, # borders around circles
+                       stroke = T, color = "black", weight = 0.3 # borders around circles
+                       # popup = ~content
                        ) %>%
       addLegend("bottomright", pal = pal_red, values = ~occupancy_rate,
                 title = "Occupancy rate",
