@@ -56,20 +56,20 @@ df$content <- sprintf(paste0("<b>",df$hospital_name,"</b><br>",
 
 # shiny app
 ui <- bootstrapPage(
-  
+
   # uses bootstrap 5
   theme = bslib::bs_theme(version = 5, bootswatch = "minty"),
+  
+  tags$head(HTML("<title>Occupancy rates in Quebec emergency rooms</title>")),
   
   div(class="container-fluid text-center py-3",
     h1("Occupancy rates in Quebec emergency rooms"),
     div(leafletOutput("map")),
-    div(htmlOutput("update", class="pt-3")),
-    div(HTML("Data source: Ministère de la Santé et des Services sociaux du Québec<br>© Copyright 2022, 
-             <a href='https://github.com/jlomako'>jlomako</a>"))
-    
+    div(htmlOutput("update", class="pt-3 fw-bold")),
+    div(HTML("Data source: Ministère de la Santé et des Services sociaux du Québec<br>© Copyright 2022,"),
+        tags$a(href="https://github.com/jlomako", "jlomako")
+        ),
   ) # close container
-  
-  
 ) # close ui
 
 
