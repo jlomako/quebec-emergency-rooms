@@ -12,10 +12,12 @@ library(stringr)
 
 df_map <- read.csv("https://github.com/jlomako/quebec-emergency-rooms/raw/main/data/coordinates.csv")
 
-# get hourly data:
-url <- "https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours.csv"
 # using local copy for now
 # url <- "Releve_horaire_urgences_7jours.csv"
+
+# get hourly data:
+url <- "https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours.csv"
+
 df <- read.csv(url, encoding = "latin1") # using read.csv here because vroom can't handle french characters
 
 # get last update
@@ -44,13 +46,11 @@ df <- df %>%
   
 # colors for circles on map
 pal_red <- colorNumeric(palette = "YlOrRd", domain = df$occupancy_rate) # "YlOrRd"
-# pal_green <- colorNumeric(palette = "RdYlGn", reverse=T, domain = df$occupancy_rate)
-  
 
 # create labels for map
 df$content <- sprintf(paste0("<b>",df$hospital_name,"</b><br>",
                              "Occupancy: ", df$occupancy_rate, "&#37;",
-                             "<br>", df$beds_occ, " beds of ", df$beds_total, " occupied")) %>%
+                             "<br>Stretchers in use: ", df$beds_occ, " / ", df$beds_total)) %>%
   lapply(htmltools::HTML)
 
 
@@ -64,7 +64,8 @@ ui <- bootstrapPage(
     h1("Occupancy rates in Quebec emergency rooms"),
     div(leafletOutput("map")),
     div(htmlOutput("update", class="pt-3")),
-    div(HTML("Data source: Ministère de la Santé et des Services sociaux du Québec<br>© Copyright 2022, jlomako"))
+    div(HTML("Data source: Ministère de la Santé et des Services sociaux du Québec<br>© Copyright 2022, 
+             <a href='https://github.com/jlomako'>jlomako</a>"))
     
   ) # close container
   
@@ -79,11 +80,9 @@ server <- function(input, output) {
       addProviderTiles(providers$CartoDB.Voyager) %>% # providers$OpenStreetMap, CartoDB.Voyager
       addCircleMarkers(lng = ~Long, lat = ~Lat, 
                        label = ~content, 
-                       # fillColor = ~ifelse(occupancy_rate >= 89, pal_red(occupancy_rate), pal_green(occupancy_rate)),
                        fillColor = ~pal_red(occupancy_rate),
                        fillOpacity = 0.8,
                        stroke = T, color = "black", weight = 0.3 # borders around circles
-                       # popup = ~content
                        ) %>%
       addLegend("bottomright", pal = pal_red, values = ~occupancy_rate,
                 title = "Occupancy rate",
