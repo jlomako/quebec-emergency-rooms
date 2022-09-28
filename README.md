@@ -1,5 +1,5 @@
 # quebec-emergency-rooms
-Shows map with current occupancy rates in Quebec emergency rooms:<br>
+Map with current occupancy rates in Quebec emergency rooms:<br>
 https://jlomako.shinyapps.io/quebec-emergency-rooms/
 
 <br><br>
