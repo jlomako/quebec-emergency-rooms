@@ -16,7 +16,8 @@ df_map <- read.csv("https://github.com/jlomako/quebec-emergency-rooms/raw/main/d
 # url <- "Releve_horaire_urgences_7jours.csv"
 
 # get hourly data:
-url <- "https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours.csv"
+url <- "https://github.com/jlomako/download-file-to-repository/raw/main/data/urgence.csv"
+# url <- "https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours.csv"
 
 df <- read.csv(url, encoding = "latin1") # using read.csv here because vroom can't handle french characters
 
@@ -50,7 +51,8 @@ pal_red <- colorNumeric(palette = "YlOrRd", domain = df$occupancy_rate) # "YlOrR
 # create labels for map
 df$content <- sprintf(paste0("<b>",df$hospital_name,"</b><br>",
                              "Occupancy: ", df$occupancy_rate, "&#37;",
-                             "<br>Stretchers in use: ", df$beds_occ, " / ", df$beds_total)) %>%
+                             "<br>Stretchers in use: ", df$beds_occ, " / ", df$beds_total,
+                             "<br><a href='https://www.google.com/maps/search/?api=1&query=",df$Lat,"&#37;2C",df$Long,"'>get directions</a>")) %>%
   lapply(htmltools::HTML)
 
 
@@ -60,10 +62,10 @@ ui <- bootstrapPage(
   # uses bootstrap 5
   theme = bslib::bs_theme(version = 5, bootswatch = "minty"),
   
-  tags$head(HTML("<title>Occupancy rates in Quebec emergency rooms</title>")),
-  
+  tags$head(HTML("<title>Quebec Emergency Rooms</title>")),
+
   div(class="container-fluid text-center py-3",
-    h1("Occupancy rates in Quebec emergency rooms"),
+    h1("Quebec Emergency Rooms"),
     div(leafletOutput("map")),
     div(htmlOutput("update", class="pt-3 fw-bold")),
     div(HTML("Data source: Ministère de la Santé et des Services sociaux du Québec<br>© Copyright 2022,"),
@@ -79,7 +81,8 @@ server <- function(input, output) {
     leaflet(df) %>% 
       addProviderTiles(providers$CartoDB.Voyager) %>% # providers$OpenStreetMap, CartoDB.Voyager
       addCircleMarkers(lng = ~Long, lat = ~Lat, 
-                       label = ~content, 
+                       # label = ~content,
+                       popup = ~content,
                        fillColor = ~pal_red(occupancy_rate),
                        fillOpacity = 0.8,
                        stroke = T, color = "black", weight = 0.3 # borders around circles
