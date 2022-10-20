@@ -1,8 +1,8 @@
 # quebec-emergency-rooms
 
-## <a href="https://jlomako.shinyapps.io/quebec-emergency-rooms/">Launch app</a>
+## <a href="https://jlomako.shinyapps.io/quebec-emergency-rooms/">Open app</a>
 
-This app shows the current occupancy rate for 
+See how busy ERs are in Quebec. This app shows the current occupancy for 
 each emergency room in Quebec, as well as the 
 location of the emergency room on a map.
 It was written in R and is hosted on <a href="https://jlomako.shinyapps.io/quebec-emergency-rooms/">shinyapps.io</a>. 
@@ -10,4 +10,5 @@ It was written in R and is hosted on <a href="https://jlomako.shinyapps.io/quebe
 This app has become part of <a href="https://jlomako.shinyapps.io/Montreal_ER/">Montreal Emergency Rooms Tracker</a> and is shown there under "map".
 
 <br>
-<img src="Screenshot_20220927-154910.png" alt="screenshot" width=40%>
+<a href="https://jlomako.shinyapps.io/quebec-emergency-rooms/"><img src="screenshot.png" alt="screenshot"></a>
+
