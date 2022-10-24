@@ -12,13 +12,8 @@ library(stringr)
 
 df_map <- read.csv("https://github.com/jlomako/quebec-emergency-rooms/raw/main/data/coordinates.csv")
 
-# using local copy for now
-# url <- "Releve_horaire_urgences_7jours.csv"
-
 # get hourly data:
-url <- "https://github.com/jlomako/download-file-to-repository/raw/main/data/urgence.csv"
-# url <- "https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours.csv"
-
+url <- "https://github.com/jlomako/quebec-emergency-rooms/raw/main/data/urgence.csv"
 df <- read.csv(url, encoding = "latin1") # using read.csv here because vroom can't handle french characters
 
 # get last update
