@@ -7,8 +7,6 @@ each emergency room in Quebec, as well as the location of the emergency room on 
 The data is updated every hour using cron job.
 This app was written in R and is hosted on <a href="https://jlomako.shinyapps.io/quebec-emergency-rooms/">shinyapps.io</a>. 
 
-This app used to be a side project of my <a href="https://jlomako.shinyapps.io/Montreal_ER/">Montreal Emergency Rooms Tracker</a> but is now a part of it and can be found there under "map".
-
 <br>
 <a href="https://jlomako.shinyapps.io/quebec-emergency-rooms/"><img src="screenshot.png" alt="screenshot"></a>
 
