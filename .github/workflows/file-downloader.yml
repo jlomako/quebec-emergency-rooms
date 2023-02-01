@@ -5,10 +5,7 @@ on:
   schedule:
   - cron: 45 * * * *
 
-#on:
-#  push:
-#    branches: 
-#      - main
+#on: push
 
 jobs: 
   download-file:
@@ -20,7 +17,7 @@ jobs:
 
       - name: run-wget
         run: wget "https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours.csv"
-      # run: wget "https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours_nbpers.csv"
+             wget "https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours_nbpers.csv"
 
       - name: commit files
         run: |
@@ -28,5 +25,6 @@ jobs:
           git config --local user.email "actions@github.com"
           git add *.csv
           git mv -f "Releve_horaire_urgences_7jours.csv" "data/urgence.csv"
+          git mv -f "Releve_horaire_urgences_7jours_nbpers.csv" "data/urgence_time.csv"
           git commit -am "Scheduled Github Action on $(date)"
           git push origin main
