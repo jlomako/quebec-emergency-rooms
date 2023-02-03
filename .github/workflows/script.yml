@@ -1,4 +1,4 @@
-name: save_data_to_file
+name: save_data_to_files
 
 on: push
 
