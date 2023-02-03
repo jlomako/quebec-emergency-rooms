@@ -1,12 +1,12 @@
 name: save_data_to_file
 
-on: push
+#on: push
 
 ## script will run around 1pm local time
 # set timer: at minute 57
-# on:
-#  schedule:
-#  - cron: 57 * * * *
+on:
+ schedule:
+ - cron: 57 * * * *
 
 jobs:
   get-data:
