@@ -30,7 +30,8 @@ df.rename(columns={'Nom_installation': 'hospital_name',
                    'DMS_ambulatoire\t\t\t\t\t\t': 'wait_hours'}, inplace=True)
 
 # calculate occupancy rate if not NaN
-f = lambda x: round(100*(x['beds_occ']/x['beds_total'])) if x.notnull().all() else np.NaN
+f = lambda x: round(100*(pd.to_numeric(x['beds_occ'])/pd.to_numeric(x['beds_total']))) if x.notnull().all() else np.NaN
+# f = lambda x: round(100*(x['beds_occ']/x['beds_total'])) if x.notnull().all() else np.NaN
 
 # and add new column occupancy_rate
 df['occupancy_rate'] = df.apply(f, axis=1)
