@@ -52,15 +52,9 @@ df_patients_total = pd.pivot(df, index='Date', columns='hospital_name', values='
 df_patients_waiting = pd.pivot(df, index='Date', columns='hospital_name', values='patients_waiting')
 df_wait_hours = pd.pivot(df, index='Date', columns='hospital_name', values='wait_hours')
 
-# write to table
-df_occupancy.to_csv("tables/occupancy.csv", header=True, na_rep='NA')
-df_patients_total.to_csv("tables/patients_total.csv", header=True, na_rep='NA')
-df_patients_waiting.to_csv("tables/patients_waiting.csv", header=True, na_rep='NA')
-df_wait_hours.to_csv("tables/wait_hours.csv", header=True, na_rep='NA')
-
-# append
-# df_occupancy.to_csv("tables/occupancy.csv", header=False, mode="a",  na_rep='NA')
-# df_patients_total.to_csv("tables/patients_total.csv", header=False, mode="a",  na_rep='NA')
-# df_patients_waiting.to_csv("tables/patients_waiting.csv", header=False, mode="a",  na_rep='NA')
-# df_wait_hours.to_csv("tables/wait_hours.csv", header=False, mode="a",  na_rep='NA')
-# 
+# write to file
+df_occupancy.to_csv("tables/occupancy.csv", header=False, mode="a",  na_rep='NA')
+df_patients_total.to_csv("tables/patients_total.csv", header=False, mode="a",  na_rep='NA')
+df_patients_waiting.to_csv("tables/patients_waiting.csv", header=False, mode="a",  na_rep='NA')
+df_wait_hours.to_csv("tables/wait_hours.csv", header=False, mode="a",  na_rep='NA')
+ 
