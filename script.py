@@ -46,21 +46,21 @@ df['occupancy_rate'] = df.apply(f, axis=1)
 # get columns
 df = df.filter(items=['hospital_name', 'occupancy_rate', 'patients_total', 'patients_waiting', 'wait_hours'])
 
-# not really neccessary..
-# replace 'Total Regional' with 'Total Montreal'
-df.iloc[0,0] = 'TOTAL MONTRÉAL'
-# replace name with weird character
-df.iloc[2,0] = 'HÔPITAL DU SACRÉ-COEUR DE MONTRÉAL'
+## not really neccessary..
+## replace 'Total Regional' with 'Total Montreal'
+# df.iloc[0,0] = 'TOTAL MONTRÉAL'
+## replace name with weird character
+# df.iloc[2,0] = 'HÔPITAL DU SACRÉ-COEUR DE MONTRÉAL'
 
 # add timestamp to df
 df = df.assign(Date = timestamp)
 
-# transform to integer, to get rid of .0
+# transform some values to integer, to get rid of .0
 df['occupancy_rate'] = pd.to_numeric(df['occupancy_rate'], downcast='integer', errors='coerce').astype('Int64')
 df['patients_total'] = pd.to_numeric(df['patients_total'], downcast='integer', errors='coerce').astype('Int64')
 df['patients_waiting'] = pd.to_numeric(df['patients_waiting'], downcast='integer', errors='coerce').astype('Int64')
 
-# transform variables to rows
+# transform to rows
 df_occupancy = pd.pivot(df, index='Date', columns='hospital_name', values='occupancy_rate')
 df_patients_total = pd.pivot(df, index='Date', columns='hospital_name', values='patients_total')
 df_patients_waiting = pd.pivot(df, index='Date', columns='hospital_name', values='patients_waiting')
