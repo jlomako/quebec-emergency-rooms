@@ -1,4 +1,6 @@
 # script that reads csv and writes data to tables
+# (without wait times)
+# run hourly
 
 import pandas as pd
 import numpy as np
