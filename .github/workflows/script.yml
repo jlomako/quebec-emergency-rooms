@@ -6,7 +6,7 @@ name: save_data_to_files
 # set timer: at minute 55
 on:
  schedule:
- - cron: 57 * * * *
+ - cron: 55 * * * *
 
 jobs:
   get-data:
