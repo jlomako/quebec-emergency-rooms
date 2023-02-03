@@ -33,6 +33,6 @@ jobs:
         run: |
           git config --local user.name actions-user
           git config --local user.email "actions@github.com"
-          git add data/*
+          git add tables/*
           git commit -am "Scheduled Github Action on $(date)"
           git push origin main
